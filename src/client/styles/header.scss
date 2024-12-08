@@ -1,0 +1,27 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; // Ensures proper vertical alignment
+    padding: 10px 40px;
+    
+    // Adjust content layout for smaller screens
+    @media (max-width: 768px) {
+        flex-direction: column; // Stack items vertically on smaller screens
+        padding: 10px 20px; // Reduce padding
+    }
+
+    div {
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-family: 'Oswald', sans-serif;
+        margin: 0;
+        font-size: 2rem;
+
+        // Responsive font size
+        @media (max-width: 768px) {
+            font-size: 1.5rem; // Adjust for smaller screens
+        }
+    }
+}

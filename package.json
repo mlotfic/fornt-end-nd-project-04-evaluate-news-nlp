@@ -1,0 +1,49 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "name": "fornt-end-nd-project-04-Evaluate News Article with NLP-app-webpack",
+  "version": "1.0.0",
+  "description": "## **Overview**",
+  "main": "src/server/index.js",
+  "scripts": {
+    "start": "node src/server/index.js",
+    "start-server": "nodemon src/server/index.js",
+    "start-dev": "concurrently \"npm run start-server\" \"npm run start\"",
+    "test": "jest",
+    "build-dev": "webpack-dev-server --config webpack.dev.js --open",
+    "build-prod": "webpack --config webpack.prod.js"
+  },
+  "keywords": [],
+  "author": "mahmoud.lotfi",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "autoprefixer": "^10.4.20",
+    "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^9.1.0",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "less-loader": "^12.2.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "nodemon": "^3.1.7",
+    "postcss-loader": "^8.1.1",
+    "sass": "^1.81.0",
+    "sass-loader": "^16.0.3",
+    "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.97.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0",
+    "workbox-webpack-plugin": "^7.3.0"
+  }
+}
