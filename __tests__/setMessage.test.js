@@ -7,7 +7,6 @@
 
 import { setMessage } from '../src/client/js/setMessage';
 
-
 describe('setMessage Function', () => {
     let mockResultsOutput;
 
