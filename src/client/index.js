@@ -13,6 +13,7 @@ import './styles/form.scss';
 import './styles/header.scss';
 import './styles/resets.scss';
 
+const baseURL = 'http://localhost:3001/'
 
 /* --- UI variables --- */
 // Input UI elements
@@ -30,7 +31,7 @@ nameInput.addEventListener('blur', () => {
 });
 
 // Event Listener: Form Submit
-form.addEventListener('submit', async (event) => {
+form.addEventListener(`${baseURL}/submit`, async (event) => {
     event.preventDefault();
 
     // Clear any previous messages
@@ -48,7 +49,7 @@ form.addEventListener('submit', async (event) => {
     // Send data to the server for analysis
     try {
         // POST input to the server
-        const postResponse = await fetch('/analyze', {
+        const postResponse = await fetch(`${baseURL}/analyze`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ form.addEventListener('submit', async (event) => {
         console.log('::: Text submitted successfully :::');
 
         // GET analysis result from the server
-        const getResponse = await fetch(`/analyze?textToAnalyze=${encodeURIComponent(input)}`);
+        const getResponse = await fetch(`${baseURL}/analyze?textToAnalyze=${encodeURIComponent(input)}`);
 
         if (!getResponse.ok) {
             throw new Error('Failed to retrieve analysis result.');
