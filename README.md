@@ -157,6 +157,7 @@ root    /
         │   ├── client/ 
         │   │   ├── js/ 
         │   │   │   ├── displayResults.js 
+        │   │   │   ├── mapPolarityLabel.js 
         │   │   │   └── setMessage.js
         │   │   ├── styles/ 
         │   │   │   ├── base.scss 
@@ -172,9 +173,9 @@ root    /
         │       └── analyzeText.js 
         ├── dist/ (auto-generated after build) 
         ├── __test__/ (for Jest tests) 
-        │   ├── displayResults.spec.js 
-        │   ├── setMessage.spec.js 
-        │   └── analyzeText.spec.js 
+        │   ├── displayResults.test.js 
+        │   ├── mapPolarityLabel.test.js 
+        │   └── setMessage.test.js 
         ├── .env (for API keys) 
         ├── .babelrc 
         ├── .gitignore 
