@@ -1,34 +1,53 @@
-/**
- * Module: displayResults.js
- * 
- * This module provides a function to display API results in a user-friendly format.
- *
- * Functions:
- * - displayResults(resultsOutput, data): Formats and displays the API results in a specified output element.
- *
- * @module displayResults
- */
+import { mapPolarityLabel } from './mapPolarityLabel';  
 
 /**
  * Formats and displays API results in a user-friendly format.
  *
  * @function displayResults
  * @param {HTMLElement} resultsOutput - The DOM element where results will be displayed.
- * @param {Object} data - The data to be displayed, typically the API response.
+ * @param {Object} data - The data to be displayed, typically the API response. The structure must include:
+ * - {string} score_tag - The overall sentiment polarity tag.
+ * - {Array<Object>} sentence_list - An array of sentence objects, each containing:
+ *   - {string} text - The sentence text.
+ *   - {string} score_tag - The sentiment polarity tag for the sentence.
+ * @throws Will throw an error if `resultsOutput` is not a valid DOM element or `data` is not properly structured.
  * @example
  * const resultsOutput = document.querySelector('#results');
- * const apiResponse = { status: 'ok', message: 'Success' };
+ * const apiResponse = {
+ *   score_tag: "P",
+ *   sentence_list: [
+ *     { text: "I love this.", score_tag: "P+" },
+ *     { text: "It's okay.", score_tag: "NEU" }
+ *   ]
+ * };
  * displayResults(resultsOutput, apiResponse);
  */
-function displayResults(resultsOutput, data) {
-    // Format JSON for readability
-    const formattedData = JSON.stringify(data, null, 2);
+function displayResults(resultsOutput, data) { 
+    if (!(resultsOutput instanceof HTMLElement)) {
+        throw new Error('Invalid input: resultsOutput must be a DOM element');
+    }
+    if (!data || typeof data !== 'object' || !Array.isArray(data.sentence_list)) {
+        throw new Error('Invalid input: data must be a valid API response object');
+    }
 
-    // Add a success class to the results output
-    resultsOutput.classList.add('success');
+    // Clear previous results in the output container
+    resultsOutput.textContent = '';
 
-    // Set the value of the textarea with the formatted data
-    resultsOutput.value = formattedData;
+    // Render Overall Polarity
+    const overallPolarity = mapPolarityLabel(data.score_tag);
+    const overallDiv = document.createElement('div');
+    overallDiv.classList.add('polarity');
+    overallDiv.textContent = `Overall Polarity: ${overallPolarity.label}`;
+    resultsOutput.appendChild(overallDiv);
+
+    // Render Sentence-Level Polarities
+    data.sentence_list.forEach(sentence => {
+        const sentencePolarity = mapPolarityLabel(sentence.score_tag);
+        const sentenceDiv = document.createElement('div');
+        sentenceDiv.classList.add('sentence', sentencePolarity.cssClass);
+        sentenceDiv.textContent = `${sentence.text} - ${sentencePolarity.label}`;
+        resultsOutput.appendChild(sentenceDiv);
+    });
 }
 
 // Export functions for use in other modules.

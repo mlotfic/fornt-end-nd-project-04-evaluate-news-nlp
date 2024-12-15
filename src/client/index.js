@@ -4,7 +4,6 @@
 
 /* ---- import modules ---- */
 import { displayResults } from './js/displayResults';
-import { mapPolarityLabel } from './js/mapPolarityLabel';
 import { setMessage } from './js/setMessage';
 
 /* ---- import styles ---- */
@@ -84,6 +83,7 @@ form.addEventListener('submit', async (event) => {
 
 
 /* --- Check for browser support then add service worker from '/service-worker.js'--- */
+// register - install - activate
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')

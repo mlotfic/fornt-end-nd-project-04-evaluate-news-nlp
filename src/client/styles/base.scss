@@ -44,18 +44,23 @@ section {
   }
   .sentence.strong-positive {
     border-color: #28a745;
+    color: #28a745;
   }
   .sentence.positive {
     border-color: #6c757d;
+    color: #6c757d;
   }
   .sentence.neutral {
     border-color: #ffc107;
+    color: #ffc107;
   }
   .sentence.negative {
     border-color: #dc3545;
+    color: #dc3545;
   }
   .sentence.strong-negative {
     border-color: #721c24;
+    color: #721c24;
   }
 
 /* Container Styling */
