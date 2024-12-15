@@ -4,7 +4,7 @@
 
 /* ---- import modules ---- */
 import { displayResults } from './js/displayResults';
-import { setMessage }     from './js/setMessage';
+import { setMessage } from './js/setMessage';
 
 /* ---- import styles ---- */
 import './styles/base.scss';
@@ -12,8 +12,6 @@ import './styles/footer.scss';
 import './styles/form.scss';
 import './styles/header.scss';
 import './styles/resets.scss';
-
-const baseURL = 'http://localhost:3001/'
 
 /* --- UI variables --- */
 // Input UI elements
@@ -31,7 +29,7 @@ nameInput.addEventListener('blur', () => {
 });
 
 // Event Listener: Form Submit
-form.addEventListener(`${baseURL}/submit`, async (event) => {
+form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     // Clear any previous messages
@@ -49,7 +47,7 @@ form.addEventListener(`${baseURL}/submit`, async (event) => {
     // Send data to the server for analysis
     try {
         // POST input to the server
-        const postResponse = await fetch(`${baseURL}/analyze`, {
+        const postResponse = await fetch('/analyze', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +62,7 @@ form.addEventListener(`${baseURL}/submit`, async (event) => {
         console.log('::: Text submitted successfully :::');
 
         // GET analysis result from the server
-        const getResponse = await fetch(`${baseURL}/analyze?textToAnalyze=${encodeURIComponent(input)}`);
+        const getResponse = await fetch(`/analyze?textToAnalyze=${encodeURIComponent(input)}`);
 
         if (!getResponse.ok) {
             throw new Error('Failed to retrieve analysis result.');
@@ -82,3 +80,18 @@ form.addEventListener(`${baseURL}/submit`, async (event) => {
         console.error(error);
     }
 });
+
+
+/* --- Check for browser support then add service worker from '/service-worker.js'--- */
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
+  
