@@ -4,6 +4,7 @@
 
 /* ---- import modules ---- */
 import { displayResults } from './js/displayResults';
+import { mapPolarityLabel } from './js/mapPolarityLabel';
 import { setMessage } from './js/setMessage';
 
 /* ---- import styles ---- */

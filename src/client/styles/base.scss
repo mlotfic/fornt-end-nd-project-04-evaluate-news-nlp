@@ -28,6 +28,35 @@ section {
     color: green;
 }
 
+// interactive response
+.polarity {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #eaf7e1;
+    color: #256029;
+  }
+  .sentence {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .sentence.strong-positive {
+    border-color: #28a745;
+  }
+  .sentence.positive {
+    border-color: #6c757d;
+  }
+  .sentence.neutral {
+    border-color: #ffc107;
+  }
+  .sentence.negative {
+    border-color: #dc3545;
+  }
+  .sentence.strong-negative {
+    border-color: #721c24;
+  }
 
 /* Container Styling */
 .container {
