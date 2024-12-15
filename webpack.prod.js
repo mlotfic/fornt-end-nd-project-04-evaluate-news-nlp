@@ -7,6 +7,7 @@ const MiniCssExtractPlugin   = require('mini-css-extract-plugin');
 const CssMinimizerPlugin     = require('css-minimizer-webpack-plugin');
 const TerserPlugin           = require('terser-webpack-plugin');
 const WorkboxPlugin          = require('workbox-webpack-plugin');
+const { GenerateSW }         = require('workbox-webpack-plugin');
 
 // Load environment variables from .env file
 const env = dotenv.config().parsed || {};
@@ -76,6 +77,30 @@ module.exports = {
         new MiniCssExtractPlugin({ 
             filename: "[name].css" 
         }),
-        new WorkboxPlugin.GenerateSW()
+        new GenerateSW({
+            swDest: 'service-worker.js', // Output file name for the service worker
+            clientsClaim: true,         // Take control of uncontrolled clients
+            skipWaiting: true,          // Activate the service worker as soon as it's installed
+            runtimeCaching: [
+              {
+                urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+                handler: 'CacheFirst', // Use cache first for image files
+                options: {
+                  cacheName: 'image-cache',
+                  expiration: {
+                    maxEntries: 50,      // Cache up to 50 images
+                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  },
+                },
+              },
+              {
+                urlPattern: /\.(?:js|css)$/,
+                handler: 'StaleWhileRevalidate', // Stale-while-revalidate for scripts/styles
+                options: {
+                  cacheName: 'static-resources',
+                },
+              },
+            ],
+        }),
     ]
 }
