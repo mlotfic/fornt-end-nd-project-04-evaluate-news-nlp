@@ -5,28 +5,57 @@
  * - displayResults: Ensures API results are formatted, displayed, and styled correctly.
  */
 
-import { displayResults } from '../src/client/js/displayResults';
+import { displayResults } from '../src/client/js/displayResults.js';
+import { mapPolarityLabel } from '../src/client/js/mapPolarityLabel.js';
+
+jest.mock('../src/client/js/mapPolarityLabel', () => ({
+    mapPolarityLabel: jest.fn()
+}));
+
 
 describe('displayResults Function', () => {
-    let mockResultsOutput;
+    let container;
 
     /**
-     * Set up a mock textarea element before each test.
+     * Set up a mock div element before each test.
      */
     beforeEach(() => {
-        mockResultsOutput = document.createElement('textarea');
+        container = document.createElement('div');
     });
 
     /**
-     * Test to ensure results are formatted as JSON, displayed in the textarea,
+     * Test to ensure results are formatted as JSON, displayed in the div,
      * and the success class is applied.
      */
-    test('should display formatted results and apply success class', () => {
-        const mockData = { status: 'ok', message: 'Test passed' };
+    test('should displays results correctly for valid data', () => {
+        // Mock mapPolarityLabel to return specific values
+        mapPolarityLabel.mockImplementation(scoreTag => ({
+            label: `Mocked sentiment for ${scoreTag}`,
+            cssClass: `mock-class-${scoreTag}`
+        }));
 
-        displayResults(mockResultsOutput, mockData);
+        const data = {
+            score_tag: 'P',
+            sentence_list: [
+                { text: "I love this.", score_tag: "P+" },
+                { text: "It's okay.", score_tag: "NEU" }
+            ]
+        };
 
-        expect(mockResultsOutput.value).toBe(JSON.stringify(mockData, null, 2));
-        expect(mockResultsOutput.classList.contains('success')).toBe(true);
+        displayResults(container, data);
+
+        const divs = container.querySelectorAll('div');
+        expect(divs).toHaveLength(3);
+        expect(divs[0].textContent).toBe('Overall Polarity: Mocked sentiment for P');
+        expect(divs[1].textContent).toBe("I love this. - Mocked sentiment for P+");
+        expect(divs[2].textContent).toBe("It's okay. - Mocked sentiment for NEU");
+    });
+
+    test('throws error for invalid resultsOutput', () => {
+        expect(() => displayResults(null, {})).toThrow('Invalid input: resultsOutput must be a DOM element');
+    });
+
+    test('throws error for invalid data structure', () => {
+        expect(() => displayResults(container, null)).toThrow('Invalid input: data must be a valid API response object');
     });
 });
