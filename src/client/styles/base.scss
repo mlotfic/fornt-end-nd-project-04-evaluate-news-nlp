@@ -36,32 +36,45 @@ section {
     background-color: #eaf7e1;
     color: #256029;
   }
-  .sentence {
+
+.sentence {
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-  }
-  .sentence.strong-positive {
+}
+.sentence.strong-positive {
     border-color: #28a745;
     color: #28a745;
-  }
-  .sentence.positive {
+}
+.sentence.positive {
     border-color: #6c757d;
     color: #6c757d;
-  }
-  .sentence.neutral {
+}
+.sentence.neutral {
     border-color: #ffc107;
     color: #ffc107;
-  }
-  .sentence.negative {
+}
+.sentence.negative {
     border-color: #dc3545;
     color: #dc3545;
-  }
-  .sentence.strong-negative {
+}
+.sentence.strong-negative {
     border-color: #721c24;
     color: #721c24;
-  }
+}
+.unknown {
+    border-color: #352470;
+    color: #352470;
+    font-style: italic;
+}
+
+.default-class {
+    border-color: black;
+    color: black;  /* Default style */
+}
+  
+
 
 /* Container Styling */
 .container {

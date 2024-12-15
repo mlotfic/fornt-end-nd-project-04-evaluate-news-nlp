@@ -23,7 +23,7 @@ function mapPolarityLabel(scoreTag) {
         "NONE": { label: "No sentiment detected", cssClass: "" }
     };
 
-    return polarityMap[scoreTag] || { label: "Unknown sentiment", cssClass: "" };
+    return polarityMap[scoreTag] || { label: "Unknown sentiment", cssClass: "unknown" };
 }
 
 

@@ -44,7 +44,12 @@ function displayResults(resultsOutput, data) {
     data.sentence_list.forEach(sentence => {
         const sentencePolarity = mapPolarityLabel(sentence.score_tag);
         const sentenceDiv = document.createElement('div');
-        sentenceDiv.classList.add('sentence', sentencePolarity.cssClass);
+        // Ensure cssClass is not empty
+        if (sentencePolarity.cssClass) {
+            sentenceDiv.classList.add('sentence', sentencePolarity.cssClass);
+        } else {
+            sentenceDiv.classList.add('unknown'); // Fallback to a default class
+        }
         sentenceDiv.textContent = `${sentence.text} - ${sentencePolarity.label}`;
         resultsOutput.appendChild(sentenceDiv);
     });
